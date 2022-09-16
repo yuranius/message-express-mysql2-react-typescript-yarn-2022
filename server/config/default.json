@@ -1,0 +1,26 @@
+{
+
+    "____": "для хранения всех констант для проекта",
+    "port": 5000,
+    "jwtSecret":"yuranius webber",
+
+    "____": "констанды для запросов к базе данных",
+    "tableOne":"users",
+    "fieldOneTableOne" : "id",
+    "fieldTwoTableOne" : "email",
+    "fieldThreeTableOne" : "password",
+    "fieldFourTableOne" : "login",
+    "fieldFiveTableOne" : "registration",
+    "fieldSixTableOne" : "avatar",
+    "fieldTableOne" : [ 
+        "fieldOneTableOne", 
+        "fieldTwoTableOne", 
+        "fieldThreeTableOne",
+        "fieldFourTableOne",
+        "fieldFiveTableOne"
+    ]
+
+    
+    
+
+}
