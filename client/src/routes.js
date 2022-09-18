@@ -4,13 +4,13 @@ import React from "react";
 
 
 import { MessagePage } from "./pages/MessagePage";
-//import { CollocutorsPage } from "./pages/Collocutors/CollocutorsPage";
-import { UsersPage } from "./pages/Users/UsersPage";
+//import { CollocutorsPage } from "./pages/FriendsPage/CollocutorsPage";
+import { UsersPage } from "./pages/UsersPage/UsersPage";
 
 import { ProfilePageContainer } from "./pages/ProfilePage/ProfilePageContainer";
 import { AuthPage } from "./pages/AuthPage";
-//import { FoundCollocutorsContainer } from "./pages/FindCollocutors/FindCollocutorsContainer";
-import { FoundUsersContainer } from "./pages/FindUsers/FindCusersContainer";
+//import { FoundCollocutorsContainer } from "./pages/UsersPage/FindCollocutorsContainer";
+import { FoundUsersContainer } from "./pages/UsersPage/FindCusersContainer";
 
 
 export const useRoutes = (isAuthenticated) => {

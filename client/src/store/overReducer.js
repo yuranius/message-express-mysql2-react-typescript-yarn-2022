@@ -1,20 +1,26 @@
 const LOADING_PROCESS = 'LOADING_PROCESS'
-const SHOW_MASSAGE = 'SHOW_MASSAGE'
-export const ASYNC_SET_SHOW_MASSAGE = 'ASYNC_SET_SHOW_MASSAGE'
+const SHOW_MESSAGE = 'SHOW_MESSAGE'
+export const ASYNC_SET_SHOW_MESSAGE = 'ASYNC_SET_SHOW_MESSAGE'
+
+const DELETE_MESSAGE = 'DELETE_MESSAGE'
+//export const ASYNC_DELETE_MESSAGE = 'ASYNC_DELETE_MESSAGE'
 
 const defaultState = {
-    massage: '',
+    message: '',
     loading: false,
 };
 
-// fjkhdjl; sd fsf 
+
 
 export const overReducer = (state = defaultState, action) => {
+
        switch (action.type) {
-           case SHOW_MASSAGE:
-               return {...state, massage: action.payload};
+           case SHOW_MESSAGE:
+               return {...state, message: action.payload};
            case LOADING_PROCESS:
                return {...state, loading: action.payload}
+           case DELETE_MESSAGE:
+               return {...state, message: ''}
        default:
            return state;
     }
@@ -22,8 +28,13 @@ export const overReducer = (state = defaultState, action) => {
 
 
 export const setLoadingProcessAction = (payload) => ({type: LOADING_PROCESS, payload})
-export const setShowMassageAction = (payload) => ({type: SHOW_MASSAGE, payload})
-export const AsyncSetShowMassageAction = (payload) => ({type: ASYNC_SET_SHOW_MASSAGE, payload})
+
+export const setShowMessageAction = (payload) => ({type: SHOW_MESSAGE, payload})
+export const AsyncSetShowMassageAction = (payload) => ({type: ASYNC_SET_SHOW_MESSAGE, payload})
+
+export const deleteShowMessageAction = () => ({type: DELETE_MESSAGE})
+//export const AsyncDeleteShowMassageAction = () => ({type: ASYNC_DELETE_MESSAGE})
+
 
 
 

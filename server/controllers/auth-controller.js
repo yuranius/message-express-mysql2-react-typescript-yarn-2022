@@ -14,6 +14,7 @@ class authController {
     // /api/auth/login
     async login(req, res) {
         try {
+
             //обработка валидации
             const errors = validationResult(req)
 
@@ -28,6 +29,8 @@ class authController {
             // получаем из request поля
             const {email, password} = req.body
 
+
+
             // ищем пользователя, если его нет, то залогинеться уже не можем
 
             const user = await pool.query(`SELECT * FROM ?? WHERE ?? = ?`, [
@@ -37,7 +40,6 @@ class authController {
             ]).then((data) => {
                 try {
                     return data[0][0];
-
                 } catch (error) {
                     return false
                 }
@@ -67,7 +69,6 @@ class authController {
                 }, // через сколько прекратит токен свое существование
             )
 
-            console.log('📢 [auth.routes.js:254]', user);
 
             res.status(200).json({
                 token,
@@ -86,6 +87,7 @@ class authController {
     //api/auth/register
     async register(req, res) {
         try {
+
             //обработка валидации
             const errors = validationResult(req)
 
@@ -115,7 +117,7 @@ class authController {
             })
 
             if (candidate) {
-                return res.status(405).json({massage: " Такой пользователь существует"})
+                return res.status(405).json({message: " Такой пользователь уже существует"})
             }
 
 
@@ -131,7 +133,7 @@ class authController {
                 email, hashedPassword, login
             ]).then((data) => {
                 // отвечаем фронтэнду
-                res.status(201).json({massage: 'Пользователь создан'})
+                res.status(201).json({massage: 'Пользователь создан, введите ваши данные и нажмите кнопку Войти'})
             })
         } catch (error) {
             res.status(500).json({massage: 'Что-то пошло не так, попробуйте снова'})
