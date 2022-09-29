@@ -7,7 +7,7 @@ import {
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 function* getMassageWorker({payload}) {
-    yield put(setShowMessageAction(payload))
+    yield put(setShowMessageAction({payload}))
     // yield delay(2000)
     // yield put(setShowMessageAction(''))
 }

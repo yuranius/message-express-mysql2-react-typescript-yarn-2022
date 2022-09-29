@@ -7,9 +7,8 @@ const findController = require ('../controllers/find-controllers')
 
 // /api/find/
 
-router.get('/collocuter/:user_query', findController.findCollocuters)
-router.get('/collocuter', findController.findPageAllCollocuters)
-router.get('/friends', findController.findAllFriends)
+router.get('/users', findController.findPageAllUsers)
+router.get('/friends', findController.findFriends)
 
 
 module.exports = router

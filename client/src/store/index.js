@@ -5,7 +5,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import { rootWatcher } from "../saga";
-import {collocutorsReducer} from "./collocutorsReducer";
+import {usersReducer} from "./usersReducer";
 import {friendsReducer} from "./friendsReducer";
 import {messageReducer} from "./messageReducer";
 
@@ -13,7 +13,7 @@ const saga = createSagaMiddleware()
 
 const rootReducer = combineReducers({
     user: authReducer,
-    collocuters: collocutorsReducer,
+    users: usersReducer,
     over: overReducer,
     friends: friendsReducer,
     message: messageReducer,

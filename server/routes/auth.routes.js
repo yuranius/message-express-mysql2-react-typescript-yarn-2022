@@ -2,7 +2,8 @@ const {Router} = require('express')
 const {check} = require('express-validator')
 const router = Router()
 const authController = require('../controllers/auth-controller')
-const bodyParserJson = require('body-parser').json();
+
+
 
 
 
@@ -19,9 +20,9 @@ const checkValidationLogin =
     ]
 
 // /api/auth/login
-router.post('/login', bodyParserJson, checkValidationLogin, authController.login)
+router.post('/login', checkValidationLogin, authController.login)
 //api/auth/register
-router.post('/register', bodyParserJson, checkValidationRegister, authController.register)
+router.post('/register', checkValidationRegister, authController.register)
 
 
 module.exports = router

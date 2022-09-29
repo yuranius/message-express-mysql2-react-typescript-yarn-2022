@@ -3,19 +3,19 @@ import  { Navigate }  from "react-router-dom";
 import React from "react";
 import { FriendsContainer } from "./FriendsPage/FriendsContainer";
 import { ProfilePageContainer } from "./ProfilePage/ProfilePageContainer";
-import { FoundCollocutorsContainer } from "./UsersPage/UsersContainer";
 import {AuthPageContainer} from "./AuthPage/AuthPageContainer";
-import MassagesContainer from "./MassagePage/MassagesContainer";
+import {UsersContainer} from "./UsersPage/UsersContainer";
+import MessagesContainer from "./MassagePage/MassagesContainer";
 
 
-export const useRoutes = (isAuthenticated) => {
-	if (isAuthenticated) {
+export const useRoute = (token) => {
+	if (!!token) {
 		return (
 			<Routes>
-				<Route path="/" element={<MassagesContainer/>}/>
-				<Route path="/users" element={ <FoundCollocutorsContainer />}/>
+				<Route path="/" element={ <MessagesContainer />}/>
+				<Route path="/users" element={ <UsersContainer />}/>
 				<Route path="/friends" exact element={<FriendsContainer />} />
-				<Route path="/messages" exact element={<MassagesContainer />} />
+				<Route path="/messages" exact element={<MessagesContainer />} />
 
 				<Route path="/profile" element={<ProfilePageContainer />} />
 				<Route path="*" element={<Navigate to="/" />} />
@@ -27,8 +27,8 @@ export const useRoutes = (isAuthenticated) => {
 		<>
 
 		<Routes>
-			<Route path="*" element={<Navigate to="/" />} />
-			<Route path="/" element={<AuthPageContainer />} />
+			<Route path="*" element={<Navigate to="/auth" />} />
+			<Route path="/auth" element={<AuthPageContainer />} />
 		</Routes>
 		</>
 	);

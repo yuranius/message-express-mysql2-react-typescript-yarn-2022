@@ -4,15 +4,20 @@ import {Alert} from "react-bootstrap";
 type AlertProps = {
     variant: string,
     setShow(isShow: boolean): void,
-    heading: string
+    heading: string,
+    show: boolean,
 }
 
 
-const AlertForm: React.FC<AlertProps> = ({variant, setShow, heading}):JSX.Element => {
+const AlertForm: React.FC<AlertProps> = ({variant, setShow, heading, show}): JSX.Element => {
     return (
-        <Alert variant={variant} onClose={() => setShow(false)} dismissible>
-            <Alert.Heading>{heading}</Alert.Heading>
-        </Alert>
+        <>
+            {show &&
+                <Alert variant={variant} onClose={() => setShow(false)} dismissible>
+                    <p>{heading}</p>
+                </Alert>
+            }
+        </>
     );
 };
 

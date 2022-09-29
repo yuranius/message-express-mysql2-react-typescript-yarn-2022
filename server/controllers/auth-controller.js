@@ -97,7 +97,7 @@ class authController {
 
                 return res.status(400).json({
                     errors: errors.array(),
-                    massage: 'Некорректные данные при регистрации',
+                    message: 'Некорректные данные при регистрации',
                 })
             }
             const {email, password} = req.body
@@ -133,10 +133,10 @@ class authController {
                 email, hashedPassword, login
             ]).then((data) => {
                 // отвечаем фронтэнду
-                res.status(201).json({massage: 'Пользователь создан, введите ваши данные и нажмите кнопку Войти'})
+                res.status(201).json({message: 'Пользователь создан, введите ваши данные и нажмите кнопку Войти'})
             })
         } catch (error) {
-            res.status(500).json({massage: 'Что-то пошло не так, попробуйте снова'})
+            res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
         }
     }
 }

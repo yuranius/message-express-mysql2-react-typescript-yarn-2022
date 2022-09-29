@@ -2,56 +2,48 @@ const pool = require('../settings/db')
 const config = require('config')
 const {validationResult, check} = require("express-validator");
 
+const {
+    REQ_USERS, REQ_ID, REQ_EMAIL, REQ_PASS,
+    REQ_LOGIN, REQ_REGISTRATION, REQ_AVATAR
+} = require ('dotenv').config().parsed
+
+
 class FindControllers {
-    async findCollocuters(req, res) {
-        const user_query = req.params.user_query
 
+    async findPageAllUsers(req, res) {
+        const {page:pageNumber, limit: pageSize, userId, value} = req.query
         try {
-        // в случае не прохождения проверки на пробелы выводим сообщение
-        const errors = validationResult(user_query)
-        if (!errors.isEmpty()) {
-            return res.status(400).json({
-                errors: errors.array(),
-                massage: 'Некорректный ввод',
-            })
-        }
+            console.log( '📌:findPageAllUsers',pageNumber,pageSize,userId, value,'🌴 🏁')
 
-        pool.query(
-            `SELECT ??, ?? FROM ?? WHERE ??.?? LIKE ?`,
-            [config.get('fieldOneTableOne'),
-                config.get('fieldFourTableOne'),
-                config.get('tableOne'),
-                config.get('tableOne'),
-                config.get('fieldFourTableOne'), '%'+ user_query + '%']
-        ).then((data) => {
-
-            if (!data[0][0]) {
-                return res.status(405).json({ massage: " Совпадений не найдено, попробуйте ввести что-то другое!!! "})
-            } else {
-                res.status(200).json( {data: data[0], massage: `Найдено ${data[0].length}`})}
-        })
-    } catch (error) {
-        return res.status(500).json({ massage: 'Ошибка запроса... Попробуйте в другой раз...'})
-    }
-    };
-
-    async findPageAllCollocuters(req, res) {
-        const {page:pageNumber, limit: pageSize, userId} = req.query
-        try {
-            const numberOfResults = await pool.query('SELECT users.id, users.login FROM users WHERE 1', [
+            let userValue = ''
+            if (value) {userValue = value}
+            
+            // SELECT users.id, users.login FROM users WHERE NOT users.id LIKE userId AND users.login LIKE '%%' 
+            const numberOfResults = await pool.query('SELECT ??.??, ??.?? FROM ?? WHERE NOT ??.?? LIKE ? AND ??.?? LIKE ?', [
+                REQ_USERS, REQ_ID,
+                REQ_USERS, REQ_LOGIN,
+                REQ_USERS,
+                REQ_USERS, REQ_ID,
+                userId,
+                REQ_USERS, REQ_LOGIN,
+                '%'+ userValue + '%'
             ]).then((data) => {
                 return data[0].length
             })
 
-            const pageLimit = pageNumber * pageSize - pageSize // вычисляем номер диапазона для sql-запроса
 
-            const collocutersOfResults = await pool.query('SELECT ??.??, ??.?? FROM ?? WHERE ?? LIMIT ?,?', [
-                config.get('tableOne'),
-                config.get('fieldOneTableOne'),
-                config.get('tableOne'),
-                config.get('fieldFourTableOne'),
-                config.get('tableOne'),
-                config.get('fieldOneTableOne'),
+
+            const pageLimit = pageNumber * pageSize - pageSize // номер диапазона для sql-запроса
+
+            //SELECT users.id,login,avatar FROM users WHERE NOT users.id LIKE userId AND users.login LIKE '%userValue%' LIMIT 1,10
+            const usersOfResults = await pool.query('SELECT ??.??,??,?? FROM ?? WHERE NOT ??.?? LIKE ? AND ??.?? LIKE ? LIMIT ?,?', [
+                REQ_USERS,REQ_ID,
+                REQ_LOGIN,REQ_AVATAR,
+                REQ_USERS,
+                REQ_USERS,REQ_ID,
+                userId,
+                REQ_USERS,REQ_LOGIN,
+                '%'+ userValue + '%',
                 pageLimit, 
                 +pageSize 
             ]).then((data) => {
@@ -59,72 +51,61 @@ class FindControllers {
             })
 
 
-          
+            let newUsersOfResults =  []
 
-
-
-            // let checkFriend = async (friendId) => {await pool.query('SELECT friends.friend_one, friends.friend_two FROM friends WHERE friend_one = ? AND friend_two = ?',[
-            //     userId,
-            //     friendId
-            // ]).then((data) => {
-            //     if (data[0][0]) { return true } else { return  false }
-            // })}
-
-            let newCollocutersOfResults =  []
-
-            await Promise.all(collocutersOfResults.map(async (col) => {
+            await Promise.all(usersOfResults.map(async (user) => {
 
                 try {
                     let checkFriend = await pool.query('SELECT friends.friend_one, friends.friend_two FROM friends WHERE friend_one = ? AND friend_two = ?',[
                     userId,
-                    col.id
+                    user.id
                     ]).then((data) => {
                     if (data[0][0]) { return true } else { return  false }
                     })
-                    newCollocutersOfResults.push({...col, friend:checkFriend})
-                    return newCollocutersOfResults;
+                    newUsersOfResults.push({...user, friend:checkFriend})
+                    return newUsersOfResults.filter( user => user.id !== userId);
                 } catch(err) {
                     throw err;
                 }
             }));
 
+            let numberOfPages = Math.ceil(numberOfResults / pageSize)
+            let totalUsers = numberOfResults
 
-            // SELECT 'friend_one','friend_two' FROM friends WHERE friend_one =28 AND friend_two=29; находим друзей пользователя
+            let message = ''
+            if (newUsersOfResults.length) {
+                message = `Найдено: ${totalUsers}`
+            } else {
+                message = 'Совпадений не найдено...'
+            }
 
-            let numberOfPages = Math.ceil(numberOfResults / pageSize) // всего страниц
-
-            res.status(200).json({collocuters:newCollocutersOfResults, totalUsers: numberOfResults, totalPages: numberOfPages})
+            res.status(200).json({users:newUsersOfResults, totalUsers, totalPages: numberOfPages, message})
 
         } catch (error) {
-            console.log('📢', error, 'Запрос не удался')
+            res.status(500).json({users: 0, totalUsers: 0, totalPages: 0, message: 'Ошибка на сервере. Сообщите администратору!'})
         }
     }
 
-    async findAllFriends(req, res) {
+    async findFriends(req, res) {
         const { userId } = req.query
 
         try {
-            const numberOfResults = await pool.query('SELECT users.id, users.login FROM users WHERE 1', [
-            ]).then((data) => {
-                return data[0].length
-            })
 
-
-            const collocutersOfResults = await pool.query('SELECT ??.??, ??.?? FROM ?? WHERE ??', [
-                config.get('tableOne'),
-                config.get('fieldOneTableOne'),
-                config.get('tableOne'),
-                config.get('fieldFourTableOne'),
-                config.get('tableOne'),
-                config.get('fieldOneTableOne'),
+            const usersOfResults = await pool.query('SELECT ??.??,??,?? FROM ?? WHERE ??', [
+                REQ_USERS,
+                REQ_ID,
+                REQ_LOGIN,
+                REQ_AVATAR,
+                REQ_USERS,
+                REQ_ID,
             ]).then((data) => {
                 return data[0]
             })
 
 
-            let newCollocutersOfResults =  []
+            let newUsersOfResults =  []
 
-            await Promise.all(collocutersOfResults.map(async (col) => {
+            await Promise.all(usersOfResults.map(async (col) => {
 
                 try {
                     let checkFriend = await pool.query('SELECT friends.friend_one, friends.friend_two FROM friends WHERE friend_one = ? AND friend_two = ?',[
@@ -134,19 +115,19 @@ class FindControllers {
                         if (data[0][0]) { return true } else { return  false }
                     })
 
-                    newCollocutersOfResults.push({...col, friend:checkFriend})
-                    return newCollocutersOfResults;
+                    newUsersOfResults.push({...col, friend:checkFriend})
+                    return newUsersOfResults;
                 } catch(err) {
                     throw err;
                 }
             }));
 
-            let friends = newCollocutersOfResults.filter( col => col.friend == true)
+            let friends = newUsersOfResults.filter( col => col.friend === true)
 
             res.status(200).json({friends})
 
         } catch (error) {
-            res.status(404).json({massage: 'Ошибка запроса... Попробуйте в другой раз...'})
+            res.status(404).json({message: 'Ошибка запроса... Попробуйте в другой раз...'})
         }
     }
 }

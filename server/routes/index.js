@@ -8,7 +8,7 @@ router.use ('/auth', require('./auth.routes'))
 router.use ('/profile', require('./profile.routes'))
 router.use ('/find', require('./find.routes'))
 router.use ('/friend', require('./friends.routes'))
-router.use ('/massages', require('./messages.routes'))
+router.use ('/messages', require('./messages.routes'))
 
 // api/user (для тестирования)
 router.get('/user', async (req, res) => {

@@ -7,7 +7,7 @@ class ProfileController {
         try {
 
             if ((/^([\s%&#@!\s])*$/).test(req.body.userLogin)) {
-                return res.status(405).json({ massage: "Некорректные данные"})
+                return res.status(405).json({ message: "Некорректные данные"})
             }
 
             const {userId, userLogin} = req.body
@@ -32,7 +32,7 @@ class ProfileController {
             console.log(candidateLogin)
 
             if (candidateLogin) {
-                return res.status(405).json({ massage: " Такое имя занято! Придумайте другое..."})
+                return res.status(405).json({ message: " Такое имя занято! Придумайте другое..."})
             }
 
             await pool.query(
@@ -47,7 +47,7 @@ class ProfileController {
                 ]
             )
 
-            res.json({ userId, userLogin, massage:"Данные изменены успешно!"})
+            res.json({ userId, userLogin, message:"Данные изменены успешно!"})
         } catch (error) {
             console.log('📢 [profile-controller.js:9]', error);
         }
