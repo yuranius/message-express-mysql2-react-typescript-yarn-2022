@@ -15,7 +15,7 @@ export const useSendMessageFromUserAndFriendsPage = () => {
 
     const sendMessage = ({id, login, avatar}:sendMessageType) => {
         dispatch(addUsersWhoHaveMessagesAction({id, login, avatar}))
-        dispatch(setCurrentUserAction({id, login, avatar, created_at: 'test#1', content: 'test#2'}))
+        dispatch(setCurrentUserAction({id, login, avatar, created_at: '', content: ''}))
         dispatch(isRedirectFromAnyPageAction(true))
         navigate('/messages')
     }

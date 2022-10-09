@@ -1,8 +1,10 @@
-const LOADING_PROCESS = 'LOADING_PROCESS'
-const SHOW_MESSAGE = 'SHOW_MESSAGE'
+import {ActionsType, DeleteShowMessageActionType, MessageType, SetLoadingProcessActionType, SetShowMessageActionType} from "../types/ReducerType/overReducerType";
+
+export const LOADING_PROCESS = 'LOADING_PROCESS'
+export const SHOW_MESSAGE = 'SHOW_MESSAGE'
 export const ASYNC_SET_SHOW_MESSAGE = 'ASYNC_SET_SHOW_MESSAGE'
 
-const DELETE_MESSAGE = 'DELETE_MESSAGE'
+export const DELETE_MESSAGE = 'DELETE_MESSAGE'
 
 
 const defaultState = {
@@ -27,26 +29,6 @@ export const overReducer = (state = defaultState, action:ActionsType) => {
     }
 };
 
-type ActionsType = SetLoadingProcessActionType | SetShowMessageActionType | DeleteShowMessageActionType
-
-
-type SetLoadingProcessActionType = {
-    type: typeof LOADING_PROCESS
-    payload: boolean
-}
-
-type SetShowMessageActionType = {
-    type: typeof SHOW_MESSAGE
-    payload: MessageType
-}
-type MessageType = {
-    statusMessage: 0 | 1 | 2 | null // 0 - success, 1 - warning, 2 - danger
-    message: string
-}
-
-type DeleteShowMessageActionType = {
-    type: typeof DELETE_MESSAGE
-}
 
 export const setLoadingProcessAction = (payload:boolean):SetLoadingProcessActionType => ({type: LOADING_PROCESS, payload})
 

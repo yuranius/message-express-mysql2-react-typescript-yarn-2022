@@ -4,7 +4,7 @@ import {
     AuthReducerActionsType,
     AuthUser, LogoutUser, LogoutUserType,
     SetAuthUserActionType
-} from "../types/reducersType";
+} from "../types/ReducerType/reducersType";
 
 export const  ASYNC_AUTH_USER = 'ASYNC_AUTH_USER'
 export const AUTH_USER = 'AUTH_USER'

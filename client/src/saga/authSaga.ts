@@ -10,7 +10,7 @@ import {
 import {loginAPI} from "../api/api";
 import {TOKEN_DATA, USER_DATA} from "../config";
 import {setLoadingProcessAction, setShowMessageAction} from "../store/overReducer";
-import {AsyncSetAuthUserActionType, AsyncSetRegisterUserActionType} from "../types/reducersType";
+import {AsyncSetAuthUserActionType, AsyncSetRegisterUserActionType} from "../types/ReducerType/reducersType";
 
 
 

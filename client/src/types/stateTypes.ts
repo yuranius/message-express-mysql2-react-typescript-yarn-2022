@@ -1,91 +1,91 @@
 export type stateOverType = {
-    over: overType
+	over: overType
 }
 
 type overType = {
-    loading: boolean
-    message: string
-    statusMessage: number,
+	loading: boolean
+	message: string
+	statusMessage: number,
 }
 
 export type stateUserType = {
-    user: userType
+	user: userType
 }
 
 type userType = {
-    token: string
-    userId: number
-    avatar: string
-    userLogin: string
+	token: string
+	userId: number
+	avatar: string
+	userLogin: string
 }
 
 
 export type stateMessageType = {
-    message: messageType
+	message: messageType
 }
 
 type messageType = {
-    users: Array<userMessageType>
-    messages: Array<messagesMessageType>
-    currentUser: CurrentUserType
-    isRedirectFromAnyPage: boolean
+	users: Array<userMessageType>
+	messages: Array<messagesMessageType>
+	currentUser: CurrentUserType
+	isRedirectFromAnyPage: boolean
 }
 
 export type CurrentUserType = {
-    id: number | null,
-    content : string | null,
-    login: string | null,
-    avatar: string | null,
-    created_at: string | null,
+	id: number | null,
+	content: string | null,
+	login: string | null,
+	avatar: string | null,
+	created_at: string | null,
 }
 
 type userMessageType = {
-    id: number
-    content: string
-    login: string
-    created_at:string
-    avatar:string
+	id: number
+	content: string
+	login: string
+	created_at: string
+	avatar: string
 }
 
 export type messagesMessageType = {
-    id: number
-    content: string
-    login: string
-    created_at: string
-    user_from_id:number | null
+	id: number
+	content: string
+	login: string
+	created_at: string
+	user_from_id: number | null
 }
 
 export type stateFriendsType = {
-    friends: ObjFriendsType
+	friends: ObjFriendsType
 }
 
 type ObjFriendsType = {
-    friends: Array<FriendsType>
+	friends: Array<FriendsType>
 }
 export type FriendsType = {
-    id:number,
-    login:string,
-    avatar: string,
-    friend:boolean,
+	id: number,
+	login: string,
+	avatar: string,
+	friend: boolean,
 }
 
 export type stateUsersType = {
-    users: ObjUsersType
+	users: ObjUsersType
 }
 
 export type ObjUsersType = {
-    users: Array<UsersType>,
-    userId: number,
-    pageSize: number,
-    pageNumber:number,
-    totalUsers: number,
-    totalPages: number,
+	users: Array<UsersStateType>,
+	userId: number,
+	pageSize: number,
+	pageNumber: number,
+	totalUsers: number,
+	totalPages: number,
 }
 
-export type UsersType = {
-    id: number,
-    login: string,
-    avatar:string,
-    friend: boolean,
+export type UsersStateType = {
+	id: number,
+	login: string,
+	avatar: string,
+	friend: boolean,
 }
 

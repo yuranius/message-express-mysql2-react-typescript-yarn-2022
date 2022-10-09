@@ -31,7 +31,7 @@ export const NavbarComponent:React.FunctionComponent = () => {
             dispatch(setCurrentUserAction({id: null, login: null, avatar: null, content:null, created_at: null,}))
             dispatch(getUsersWhoHaveMessagesAction([{ id: null, content: null,login: null, avatar: null, created_at: null}]))
             dispatch(deleteShowMessageAction())
-            dispatch(getMessagesUserAction([{id: null, content: null, login: null, created_at: null, user_from_id: null}]))
+            dispatch(getMessagesUserAction([{id: null, content: null, login: null, created_at: null, userFromId: null}]))
         }
     }
 

@@ -7,7 +7,7 @@ import {
     getFriendsAction
 } from "../store/friendsReducer";
 import {setLoadingProcessAction, setShowMessageAction} from "../store/overReducer";
-import {AsyncDelFriendActionType, AsyncGetFriendsActionType} from "../types/reducersType";
+import {AsyncDelFriendActionType, AsyncGetFriendsActionType} from "../types/ReducerType/reducersType";
 
 
 

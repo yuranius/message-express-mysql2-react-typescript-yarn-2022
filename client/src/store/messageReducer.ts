@@ -6,7 +6,6 @@ import {
     AddUsersMessagesType,
     AddUsersWhoHaveMessagesActionType,
     AsyncAddMessageActionCreatorType,
-    AsyncChangeUsersWhoHaveMessagesActionType,
     AsyncGetMessagesUserActionType,
     AsyncGetUsersWhoHaveMessagesActionType,
     ChangeUsersWhoHaveMessagesActionType,
@@ -17,7 +16,7 @@ import {
     MessageReducerActionsType, MessagesUser,
     MessageType, MyUsersType,
     SetCurrentUserActionType
-} from "../types/reducersType";
+} from "../types/ReducerType/messageReducerType";
 import {UsersWhoHaveMassagesTypes} from "../types/pageTypes";
 
 
@@ -120,7 +119,6 @@ export const getUsersWhoHaveMessagesAction = (payload:Array<MyUsersType>):GetUse
 export const AsyncGetUsersWhoHaveMessagesAction = (payload:number):AsyncGetUsersWhoHaveMessagesActionType => ({type:ASYNC_GET_USERS_WHO_HAVE_MESSAGES, payload});
 
 export const changeUsersWhoHaveMessagesAction = (payload:number | null):ChangeUsersWhoHaveMessagesActionType => ({type:CHANGE_USERS_WHO_HAVE_MESSAGES, payload});
-//export const AsyncChangeUsersWhoHaveMessagesAction = (payload: number | null):AsyncChangeUsersWhoHaveMessagesActionType => ({type:ASYNC_CHANGE_USERS_WHO_HAVE_MESSAGES, payload});
 
 export const getMessagesUserAction = (payload: Array<MessagesUser>):GetMessagesUserActionType => ({type:GET_MESSAGES_USER, payload});
 export const AsyncGetMessagesUserAction = (payload:GetMessagesUsers):AsyncGetMessagesUserActionType => ({type:ASYNC_GET_MESSAGES_USER, payload});

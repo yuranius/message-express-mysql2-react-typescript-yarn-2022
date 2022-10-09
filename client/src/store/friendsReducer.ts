@@ -1,4 +1,4 @@
-import {ActionsType, AsyncDelFriendActionType, AsyncGetFriendsActionType, DelFriendActionType, GetFriendsActionType} from "../types/reducersType"
+import {ActionsType, AsyncDelFriendActionType, AsyncGetFriendsActionType, DelFriendActionType, GetFriendsActionType} from "../types/ReducerType/reducersType"
 
 export const GET_FRIENDS = 'GET_FRIENDS'
 export const ASYNC_GET_FRIENDS = 'ASYNC_GET_FRIENDS'

@@ -11,8 +11,8 @@ import {
 import {setLoadingProcessAction, setShowMessageAction} from "../store/overReducer";
 import {
     AsyncAddMessageActionCreatorType, AsyncGetMessagesUserActionType, AsyncGetUsersWhoHaveMessagesActionType,
-    ChangeUsersWhoHaveMessagesActionType, GetMessagesUserActionType
-} from "../types/reducersType";
+    ChangeUsersWhoHaveMessagesActionType
+} from "../types/ReducerType/messageReducerType";
 
 
 
@@ -53,7 +53,7 @@ function* getMessagesUserWorker({payload}:AsyncGetMessagesUserActionType) {
 
     } catch (error:any) {
         yield put (setLoadingProcessAction(false))
-        yield put (getMessagesUserAction([{user_from_id: null, id: null, created_at: null, login: null, content:null}]))
+        yield put (getMessagesUserAction([{userFromId: null, id: null, created_at: null, login: null, content:null}]))
         yield  put(setShowMessageAction({statusMessage:2, message:error.response.data.message}))
 
     }
